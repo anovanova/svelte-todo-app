@@ -2,9 +2,13 @@
 import TodoItem from "$lib/components/TodoItem.svelte";
     const todos = $state([{ todo: "Cleaning", deadline: new Date('2/23/2025')}])
     let showAddTodo = $state(false)
+    let todoText = $state("")
+    let dateText = $state(new Date())
 
     function addTodo(){
-        todos.push();
+        todos.push({todo: todoText, deadline: dateText});
+        todoText = ''
+        dateText = new Date()
     }
 
     function showAddTodoFunction(){
@@ -18,9 +22,9 @@ import TodoItem from "$lib/components/TodoItem.svelte";
     </div>
 {#if showAddTodo}
 	<div>
-        <input type="text">
-        <input type="date" name="" id="">
-        <button>Add</button>
+        <input bind:value={todoText} type="text">
+        <input bind:value={dateText} type="date" name="" id="">
+        <button onclick={addTodo}>Add</button>
     </div>
 {/if}
 {#each todos as todo (todo)}
